@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>let声明变量</title>
+  </head>
+  <body>
+    <input type="button" name="" value="点我">
+    <input type="button" name="" value="再点我">
+    <input type="button" name="" value="还点我">
+    <script type="text/javascript" charset="utf-8">
+      // 解决了重复声明变量的问题 以前的 var可以
+      /*var a = 10;
+      var a = 20;
+      alert(a); // 20
+      */
+      /*let a = 10;
+      let a = 20;
+      alert(a); // Uncaught SyntaxError: Identifier 'a' has already been declared 报错
+      */
+      //let a = 10;
+      //alert(a);
+      // 有了块级作用域
+      let btns = document.getElementsByTagName('input');
+      //console.log(btns);
+      /*for(var i=0;i<btns.length;i++){
+        btns[i].onclick = function(){
+          alert(i); // 3 3 3
+        }
+      }*/
+     /*for(var i=0;i<btns.length;i++){
+       (function(i){
+        btns[i].onclick = function(){
+          alert(i); //0 1 2
+        }
+      })(i)
+    }*/
+    for(let i=0;i<btns.length;i++){
+      btns[i].onclick = function(){
+        alert(i);
+        }
+      }
+      const c = 52; // 定义常量
+      console.log(c);
+      </script>
+  </body>
+</html>

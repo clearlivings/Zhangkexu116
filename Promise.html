@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Promise</title>
+  </head>
+  <body>
+    <script src="lib/jquery-3.2.1.js" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      let pr = new Promise((resolve,reject)=>{
+        $.ajax({
+          url: 'data/data1.txt',
+          dataType: 'json',
+          success(res) {
+            resolve(res);
+          },
+          error(err){
+            reject(err);
+          }
+        });
+      });
+      pr.then(res=>{
+        alert('成功了');
+        console.log(res);
+      },err=>{
+        alert('失败了');
+      });
+    </script>
+  </body>
+</html>

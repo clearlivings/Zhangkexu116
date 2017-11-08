@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Array新增的几个方法</title>
+  </head>
+  <body>
+  <script type="text/javascript" charset="utf-8">
+    // 1.map  可以理解为映射
+    /*let ary = [12,25,89,32,65,57];
+    let newAry = ary.map(item=>item*2);
+    alert(ary); // 12,25,89,32,65,57
+    alert(newAry); // 24,50,178,64,130,114
+    */
+    // 2.reduce 可以理解为汇总 多对一,以求平均数为例
+    /* reduce() 接收一个函数变量 函数有三个参数
+     * temp: （每次前一个数与后一个数相加的结果 23 79 166 262）
+     * item: 数组每一个元素
+     * item: 索引
+    */
+    /*
+    let reArr = [23,56,87,96,58,69];
+    let res = reArr.reduce(function(temp,item,index){
+      if(index<reArr.length-1){
+        //alert(temp);
+        return temp+item;
+      }
+      else {
+        return (temp+item)/reArr.length;
+      }
+    });
+    alert(res); // 64.83333333333333
+    */
+    //3. forEach  遍历数组的方法
+    // forEach(function(item,index)) 匿名函数接收两个参数 遍历的元素本身 item 索引 index
+    /*let arr = [36,57,98,36,68,20,65];
+    arr.forEach(function(item,index){
+       alert('第'+index+'个元素为'+item);
+       //alert(`第${index}元素为${item}`); // ES6的字符串模板 `${}`
+    })*/
+    // 4. filter 过滤器
+    let arr = [32,56,98,68,69,36,24,3,1];
+    let res = arr.filter(item=>item%2); // 过滤掉偶数
+    alert(res); // 69,3,1
+  </script>
+  </body>
+</html>
