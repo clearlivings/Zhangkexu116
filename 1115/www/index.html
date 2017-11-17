@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <style media="screen">
+      ul {
+        list-style: none;
+      }
+      .my {
+        background-color: green;
+      }
+    </style>
+    <script src="http://localhost:8080/socket.io/socket.io.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <h1>这个首页</h1>
+    用户:<input type="username" name="" value="" id="user" ><br>
+    密码:<input type="password" name="" value="" id="pass"><br>
+    <input type="button" name="" value="注册" id="btn">
+    <input type="button" name="" value="登陆" id="log">
+    <hr>
+    <textarea name="name" rows="4" cols="80" id="otxt"></textarea><br>
+    <input type="button" name="" value="发送" id="send_txt">
+    <ul id="ul">
+      <!--<li>
+        <h3>张三</h3>
+        <p>sdjsaidjoskjdoapskdspoakd</p>
+      </li>-->
+    </ul>
+    <script type="text/javascript" charset="utf-8">
+      let user = document.getElementById("user");
+      let pass = document.getElementById("pass");
+      let btn = document.getElementById("btn");
+      let log = document.getElementById("log");
+      let send_txt = document.getElementById("send_txt");
+      let otxt = document.getElementById("otxt");
+      let ul = document.getElementById("ul");
+      let sock = io.connect("ws://localhost:8080/");
+      let cur_username = "";
+      // 登陆
+      sock.on("login_ret",(code,msg)=>{
+        if(code){
+          alert("登陆失败 " +msg);
+        }else {
+          alert("登陆成功");
+          cur_username = user.value;
+        }
+      });
+      // 注册
+      sock.on("reg_ret",(code,msg)=>{
+        if(code){
+          alert("注册失败" +msg);
+        }else{
+          alert("注册成功");
+        }
+      });
+      btn.onclick = function(){
+         sock.emit("reg",user.value,pass.value)
+      };
+      log.onclick = function(){
+        sock.emit("login",user.value,pass.value);
+      }
+      //  消息
+      sock.on("msg_ret",(code,msg)=>{
+        if(code){
+          alert("消息发送失败 " +msg);
+        }else{
+          let oli = document.createElement("li");
+          oli.innerHTML = `<h3>${cur_username}</h3><p>${otxt.value}</p>`;
+          oli.className = "my";
+          ul.appendChild(oli);
+          otxt.value = '';
+        }
+      });
+      sock.on("msg",(name,txt)=>{
+        let olis = document.createElement("li");
+        olis.innerHTML = `<h3>${name}</h3><p>${txt}</p>`;
+        ul.appendChild(olis);
+      })
+      send_txt.onclick = function(){
+        sock.emit("msg",otxt.value);
+      }
+    </script>
+  </body>
+</html>
